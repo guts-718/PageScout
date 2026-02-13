@@ -1,15 +1,23 @@
 {
   "manifest_version": 3,
-  "name": "FindFlow",
+  "name": "PageScout",
   "version": "0.1",
   "description": "Smart search inside webpages",
   "permissions": ["scripting", "activeTab"],
   "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["extractor.js", "content.js"],
-        "run_at": "document_idle"
-      }
-    ]
+  {
+    "matches": ["<all_urls>"],
+    "js": [
+      "extractor.js",
+      "content/searchEngine.js",
+      "content/highlighter.js",
+      "content/navigator.js",
+      "content.js"
+    ],
+    "run_at": "document_idle"
+  }
+]
+
+
 
 }
