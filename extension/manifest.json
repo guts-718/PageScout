@@ -8,11 +8,13 @@
   {
     "matches": ["<all_urls>"],
     "js": [
-      "extractor.js",
-      "content/searchEngine.js",
-      "content/highlighter.js",
-      "content/navigator.js",
-      "content.js"
+        "extractor.js",
+        "content/constants.js",
+        "content/ranker.js",
+        "content/searchEngine.js",
+        "content/highlighter.js",
+        "content/navigator.js",
+        "content.js"
     ],
     "run_at": "document_idle"
   }

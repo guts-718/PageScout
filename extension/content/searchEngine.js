@@ -1,4 +1,8 @@
 let TEXT_NODES = [];
+console.log("search engine here");
+if (!window.CONFIG) {
+    console.error("CONFIG not loaded");
+}
 
 function buildTextNodeCache() {
     const walker = document.createTreeWalker(
@@ -16,41 +20,97 @@ function buildTextNodeCache() {
     }
 }
 
-function searchExact(query) {
-    const matches = [];
+
+function exactSearch(query) {
+    const results = [];
 
     TEXT_NODES.forEach(node => {
-        const text = node.nodeValue;
-        let index = text.toLowerCase().indexOf(query);
+        const text = node.nodeValue.toLowerCase();
+        let index = text.indexOf(query);
 
         while (index !== -1) {
-            matches.push({
+            results.push({
                 node,
                 start: index,
                 end: index + query.length,
-                text: text.substring(index, index + query.length)
+                text: node.nodeValue.slice(index, index + query.length),
+                strategy: "EXACT",
+                similarity: 100,
+                score: window.CONFIG.STRATEGY_WEIGHT.EXACT + 100
             });
 
-            index = text.toLowerCase().indexOf(query, index + 1);
+            index = text.indexOf(query, index + 1);
         }
     });
 
-    return matches;
+    return results;
 }
 
-function searchSubstring(query) {
-    return searchExact(query);
-}
 
-function runSearch(query) {
-    query = query.toLowerCase();
+function substringSearch(query) {
+    const results = [];
 
-    let results = searchExact(query);
+    TEXT_NODES.forEach(node => {
+        const text = node.nodeValue.toLowerCase();
 
-    if (results.length === 0)
-        results = searchSubstring(query);
+        if (!text.includes(query)) return;
+
+        const similarity = scoreSubstring(query, text);
+
+        results.push({
+            node,
+            start: 0,
+            end: text.length,
+            text: node.nodeValue,
+            strategy: "SUBSTRING",
+            similarity,
+            score: window.CONFIG.STRATEGY_WEIGHT.SUBSTRING + similarity
+        });
+    });
 
     return results;
+}
+
+
+function lcsSearch(query) {
+    const results = [];
+
+    TEXT_NODES.forEach(node => {
+        const text = node.nodeValue.toLowerCase();
+        const similarity = scoreLCS(query, text);
+
+        if (similarity < window.CONFIG.LCS_THRESHOLD * 100) return;
+
+        results.push({
+            node,
+            start: 0,
+            end: Math.min(text.length, window.CONFIG.LCS_MAX_TEXT),
+            text: node.nodeValue,
+            strategy: "LCS",
+            similarity,
+            score: window.CONFIG.STRATEGY_WEIGHT.LCS + similarity
+        });
+    });
+
+    return results;
+}
+
+
+function runSearch(query) {
+
+    if (!query || query.length < 2) return [];
+
+    query = query.toLowerCase();
+
+    let results = exactSearch(query);
+
+    if (results.length < window.CONFIG.MIN_RESULTS_BEFORE_LCS)
+        results = results.concat(substringSearch(query));
+
+    if (results.length < window.CONFIG.MIN_RESULTS_BEFORE_LCS)
+        results = results.concat(lcsSearch(query));
+
+    return rankResults(results);
 }
 
 buildTextNodeCache();

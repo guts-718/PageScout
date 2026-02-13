@@ -32,7 +32,7 @@ function highlightMatches(matches) {
         fragment.appendChild(span);
         if (after) fragment.appendChild(document.createTextNode(after));
 
-        node.parentNode.replaceChild(fragment, node);
+        node?.parentNode?.replaceChild(fragment, node);
         activeHighlights.push(span);
     });
 }
