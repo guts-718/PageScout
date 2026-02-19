@@ -1,3 +1,10 @@
+console.log("CONTENT SCRIPT LOADED", Date.now());
+
+
+// (async () => {
+//     await import(chrome.runtime.getURL("content/semanticEngine.js"));
+// })();
+
 console.log("SmartSearch Ready");
 
 function showOverlay(count) {
@@ -27,7 +34,7 @@ function showOverlay(count) {
 }
 
 
-document.addEventListener("keydown", e => {
+document.addEventListener("keydown",async e => {
 
     if (e.ctrlKey && e.shiftKey && e.key === "F") {
         e.preventDefault();
@@ -35,7 +42,8 @@ document.addEventListener("keydown", e => {
         const query = prompt("Search page:");
         if (!query) return;
 
-        const results = runSearch(query);
+        const results = await runSearch(query);
+        console.log("RESULTS: ", results);
 
         if (!results.length) {
             alert("No relevant matches found");
