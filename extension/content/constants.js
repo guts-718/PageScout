@@ -8,6 +8,7 @@ window.CONFIG = {
     MIN_RESULTS_BEFORE_LCS: 5,
 
     STRATEGY_WEIGHT: {
+        SEMANTIC: 1500, //for testing setting it to 1500
         EXACT: 1000,
         SUBSTRING: 700,
         LCS: 300

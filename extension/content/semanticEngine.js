@@ -13,13 +13,13 @@ function getExpandedKeywords(query) {
 
         try {
             chrome.runtime.sendMessage(
-                { type: "OLLAMA_QUERY", query },
-                () => {
-                    if (chrome.runtime.lastError) {
-                        console.warn("Runtime unavailable");
-                        resolve([]);
-                    }
-                }
+                { type: "OLLAMA_QUERY", query }//,
+                // () => {
+                //     if (chrome.runtime.lastError) {
+                //         console.warn("Runtime unavailable");
+                //         resolve([]);
+                //     }
+                // }
             );
         } catch(e){
             console.log("issue in resolution instead ollama query... thats why resolved with empty: ",e);
@@ -47,6 +47,7 @@ chrome.runtime.onMessage.addListener(msg => {
     if (msg.type !== "OLLAMA_RESULT") return;
 
     semanticCache[msg.query] = msg.words;
+    semanticSearch(msg.words);
    
 
     if (pendingResolvers[msg.query]) {
@@ -85,6 +86,7 @@ function semanticSearch(keywords) {
         });
 
     });
+    console.log("result of semantic search: ", results);
 
     return results;
 }

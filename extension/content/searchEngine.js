@@ -18,8 +18,8 @@ async function runSemanticPhase(query, results) {
         console.log("keywords expansion: ", keywords);
 
         if (!keywords.length) return results;
-         const semanticResults = semanticSearch(keywords);
-
+        const semanticResults = semanticSearch(keywords);
+        console.log("semantic search output from searchengine envocation: ",semanticResults);
         return results.concat(semanticResults);
     }catch(e){
         console.log("error in the runsemantic phase: ", e);
@@ -137,9 +137,9 @@ async function runSearch(query) {
     if (results.length < window.CONFIG.MIN_RESULTS_BEFORE_LCS)
         results = results.concat(substringSearch(query));
 
-    let temp = await runSemanticPhase(query, results);
-    console.log("from llm: ",temp);
-    results.concat(temp);
+    results = await runSemanticPhase(query, results);
+    console.log("from llm this is prior result + semantic additions: ",results);
+   // results.concat(temp);
     // this LCS needs some fixing. either way it doesn't make such sense
     // if (results.length < window.CONFIG.MIN_RESULTS_BEFORE_LCS)
     //     results = results.concat(lcsSearch(query));
