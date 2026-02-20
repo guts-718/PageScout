@@ -11,6 +11,7 @@
   "content_scripts": [
   {
     "matches": ["<all_urls>"],
+    "css": ["content/ui/overlay.css"],
     "js": [
         "extractor.js",
         "content/constants.js",
@@ -19,6 +20,8 @@
         "content/searchEngine.js",
         "content/highlighter.js",
         "content/navigator.js",
+        "content/ui/controller.js",
+        "content/ui/overlay.js",
         "content.js"
       ],
       "run_at": "document_idle"

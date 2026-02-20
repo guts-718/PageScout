@@ -57,7 +57,6 @@ chrome.runtime.onMessage.addListener(msg => {
 });
 
 
-
 function semanticSearch(keywords) {
 
     console.log("entered semantic search");
@@ -69,23 +68,30 @@ function semanticSearch(keywords) {
 
         keywords.forEach(word => {
 
-            if (!text.includes(word)) return;
+            const index = text.indexOf(word);
+            if (index === -1) return;
+            
 
-            const similarity = (word.length / text.length) * 100;
+            let similarity = 80;
 
+            // strong match if word boundary match
+            const regex = new RegExp(`\\b${word}\\b`);
+            if (regex.test(text)) similarity = 100;
+            if (index < 50) similarity += 25;
             results.push({
                 node,
-                start: 0,
-                end: text.length,
+                start: index,
+                end: index + word.length,
                 text: node.nodeValue,
                 strategy: "SEMANTIC",
                 similarity,
-                score: 500 + similarity
+                score: window.CONFIG.STRATEGY_WEIGHT.SEMANTIC + similarity
             });
 
         });
 
     });
+
     console.log("result of semantic search: ", results);
 
     return results;

@@ -25,7 +25,7 @@ chrome.runtime.onMessage.addListener(async(msg, sender) => {
                 {
                     role: "user",
                     content: `Return 8 keywords related to or having the same / similar meaning to "${msg.query}". 
-        Comma separated. No explanation. just 8 keywords first one being batsman`
+        Comma separated. No explanation. just 8 keywords`
                 }
             ]
         })

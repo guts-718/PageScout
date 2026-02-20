@@ -34,37 +34,37 @@ function showOverlay(count) {
 }
 
 
-document.addEventListener("keydown",async e => {
+// document.addEventListener("keydown",async e => {
 
-    if (e.ctrlKey && e.shiftKey && e.key === "F") {
-        e.preventDefault();
+//     if (e.ctrlKey && e.shiftKey && e.key === "F") {
+//         e.preventDefault();
 
-        const query = prompt("Search page:");
-        if (!query) return;
+//         const query = prompt("Search page:");
+//         if (!query) return;
 
-        const results = await runSearch(query);
-        console.log("RESULTS: ", results);
+//         const results = await runSearch(query);
+//         console.log("RESULTS: ", results);
 
-        if (!results.length) {
-            alert("No relevant matches found");
-            return;
-        }
+//         if (!results.length) {
+//             alert("No relevant matches found");
+//             return;
+//         }
 
-        highlightMatches(results);
+//         highlightMatches(results);
 
-        const spans = [...document.querySelectorAll("span")]
-            .filter(el => el.style.background === "yellow");
+//         const spans = [...document.querySelectorAll("span")]
+//             .filter(el => el.style.background === "yellow");
 
-        startNavigation(spans);
-        showOverlay(spans.length);
+//         startNavigation(spans);
+//         showOverlay(spans.length);
 
-        nextMatch();
-    }
+//         nextMatch();
+//     }
 
-    if (e.key === "Enter" && !e.shiftKey) nextMatch();
-    if (e.key === "Enter" && e.shiftKey) prevMatch();
-    if (e.key === "Escape") clearHighlights();
-});
+//     if (e.key === "Enter" && !e.shiftKey) nextMatch();
+//     if (e.key === "Enter" && e.shiftKey) prevMatch();
+//     if (e.key === "Escape") clearHighlights();
+// });
 
 
 const style = document.createElement("style");

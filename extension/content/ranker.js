@@ -29,10 +29,11 @@ function scoreLCS(query, text) {
 
 
 function rankResults(results) {
+    console.log("window.CONFIG.MAX_RESULTS: ", window.CONFIG.MAX_RESULTS);
     console.log("strategy: ", results[0].strategy, results[1].strategy)
     return results
-        // .filter(r => r.similarity >= window.CONFIG.LCS_THRESHOLD * 100) 
-        .filter(r=> r.strategy==="SEMANTIC")  // to check for SEMANTIC...
+        .filter(r => r.similarity >= window.CONFIG.LCS_THRESHOLD * 100) 
+        // .filter(r=> r.strategy==="SEMANTIC")  // to check for SEMANTIC...
         .sort((a, b) => b.score - a.score)
         .slice(0, window.CONFIG.MAX_RESULTS);
 }
