@@ -19,15 +19,15 @@ window.SSController = (() => {
 
         // async semantic
         
-        // runSemanticPhase(query, state.results)
-        // .then(updated => {
+        runSemanticPhase(query, state.results)
+        .then(updated => {
 
-        //     state.results = updated;
+            state.results = updated;
 
-        //     highlightMatches(updated);
-        //     startNavigation([...document.querySelectorAll(".ss-highlight")]);
-        //     updateCount(updated.length);
-        // });
+            highlightMatches(updated);
+            startNavigation([...document.querySelectorAll(".ss-highlight")]);
+            updateCount(updated.length);
+        });
     }
 
     function next() { nextMatch(); }
