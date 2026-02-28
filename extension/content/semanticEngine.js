@@ -4,7 +4,7 @@ const pendingResolvers = {};
 
 function getExpandedKeywords(query) {
 
-    console.log("Entered get expanded keywords");
+    // console.log("Entered get expanded keywords");
 
      // if (semanticCache[query])
     //     return Promise.resolve(semanticCache[query]);
@@ -22,7 +22,7 @@ function getExpandedKeywords(query) {
                 // }
             );
         } catch(e){
-            console.log("issue in resolution instead ollama query... thats why resolved with empty: ",e);
+            // console.log("issue in resolution instead ollama query... thats why resolved with empty: ",e);
             return resolve([]);
         }
 
@@ -41,8 +41,8 @@ function getExpandedKeywords(query) {
 
 
 chrome.runtime.onMessage.addListener(msg => {
-    console.log("entered ollama result message handler");
-     console.log("message from ollama", msg);
+    // console.log("entered ollama result message handler");
+    //  console.log("message from ollama", msg);
 
     if (msg.type !== "OLLAMA_RESULT") return;
 
@@ -59,7 +59,7 @@ chrome.runtime.onMessage.addListener(msg => {
 
 function semanticSearch(keywords) {
 
-    console.log("entered semantic search");
+    // console.log("entered semantic search");
     const results = [];
 
     TEXT_NODES.forEach(node => {
@@ -92,7 +92,7 @@ function semanticSearch(keywords) {
 
     });
 
-    console.log("result of semantic search: ", results);
+    // console.log("result of semantic search: ", results);
 
     return results;
 }

@@ -11,7 +11,7 @@ window.SSController = (() => {
 
         clearHighlights();
         state.results =await runSearch(query);
-        console.log("matches:  inside the controller.js sscontroller ", state.results);
+        // console.log("matches:  inside the controller.js sscontroller ", state.results);
         highlightMatches(state.results);
         startNavigation([...document.querySelectorAll(".ss-highlight")]);
 
@@ -51,4 +51,4 @@ window.SSController = (() => {
 
 })();
 
-console.log("window.SSController: ", window.SSController)
+// console.log("window.SSController: ", window.SSController)

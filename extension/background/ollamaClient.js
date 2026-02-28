@@ -8,9 +8,9 @@ VM450:1 Fetch failed loading: GET "http://localhost:11434/".
 */
 
 chrome.runtime.onMessage.addListener(async(msg, sender) => {
-    console.log("ollama called");
-    console.log("message: ",msg);
-    console.log("sender: ", sender);
+    // console.log("ollama called");
+    // console.log("message: ",msg);
+    // console.log("sender: ", sender);
     if (msg.type !== "OLLAMA_QUERY") return;
 
     const tabId = sender.tab.id;
@@ -34,7 +34,7 @@ chrome.runtime.onMessage.addListener(async(msg, sender) => {
     .then(r=>{console.log("Res: ",r);return r})
     .then(r => r.json())
     .then(data => {
-        console.log("data inside ollama client", data);
+        // console.log("data inside ollama client", data);
         const words = (data.message?.content || "")
             .split(",")
             .map(w => w.trim().toLowerCase())
@@ -48,7 +48,7 @@ chrome.runtime.onMessage.addListener(async(msg, sender) => {
 
     })
     .catch((e) => {
-        console.log("error inside the ollama client.js: ",e);
+        // console.log("error inside the ollama client.js: ",e);
         chrome.tabs.sendMessage(tabId, {
             type: "OLLAMA_RESULT",
             query: msg.query,

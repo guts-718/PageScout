@@ -14,7 +14,7 @@ async function highlightMatches(matches) {
     clearHighlights();
 
     //const matches = await matchesPromise; 
-    console.log("matches:", matches);
+    // console.log("matches:", matches);
 
     matches?.forEach(match => {
         const { node, start, end } = match;

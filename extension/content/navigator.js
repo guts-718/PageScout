@@ -22,21 +22,21 @@ function highlightCurrent() {
 }
 
 function nextMatch() {
-    console.log("next_matched_clicked");
+    // console.log("next_matched_clicked");
     if (!currentMatches.length) return;
 
    
     currentIndex = (currentIndex + 1) % currentMatches.length;
-    console.log("crrent_index: ",currentIndex);
+    // console.log("crrent_index: ",currentIndex);
     highlightCurrent();
 }
 
 function prevMatch() {
-    console.log("prev_matched_clicked");
+    // console.log("prev_matched_clicked");
     if (!currentMatches.length) return;
 
     currentIndex =
         (currentIndex - 1 + currentMatches.length) % currentMatches.length;
-    console.log("crrent_index: ",currentIndex);
+    // console.log("crrent_index: ",currentIndex);
     highlightCurrent();
 }
