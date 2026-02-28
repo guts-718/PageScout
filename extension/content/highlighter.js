@@ -10,10 +10,13 @@ function clearHighlights() {
     activeHighlights = [];
 }
 
-function highlightMatches(matches) {
+async function highlightMatches(matches) {
     clearHighlights();
 
-    matches.forEach(match => {
+    //const matches = await matchesPromise; 
+    console.log("matches:", matches);
+
+    matches?.forEach(match => {
         const { node, start, end } = match;
 
         const text = node.nodeValue;
@@ -22,6 +25,7 @@ function highlightMatches(matches) {
         const after = text.slice(end);
 
         const span = document.createElement("span");
+        span.className = "ss-highlight";
         span.textContent = target;
         span.style.background = "yellow";
         span.style.color = "black";

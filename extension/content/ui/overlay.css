@@ -62,3 +62,8 @@
     font-size: 12px;
     opacity: .8;
 }
+
+.ss-highlight {
+    background: yellow;
+    color: black;
+}

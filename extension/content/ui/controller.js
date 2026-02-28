@@ -9,23 +9,25 @@ window.SSController = (() => {
     async function search(query) {
         state.query = query;
 
-        state.results = await runSearch(query);
+        clearHighlights();
+        state.results =await runSearch(query);
         console.log("matches:  inside the controller.js sscontroller ", state.results);
         highlightMatches(state.results);
-        startNavigation([...document.querySelectorAll("span")]);
+        startNavigation([...document.querySelectorAll(".ss-highlight")]);
 
         updateCount(state.results.length);
 
         // async semantic
-        runSemanticPhase(query, state.results)
-        .then(updated => {
+        
+        // runSemanticPhase(query, state.results)
+        // .then(updated => {
 
-            state.results = updated;
+        //     state.results = updated;
 
-            highlightMatches(updated);
-            startNavigation([...document.querySelectorAll("span")]);
-            updateCount(updated.length);
-        });
+        //     highlightMatches(updated);
+        //     startNavigation([...document.querySelectorAll(".ss-highlight")]);
+        //     updateCount(updated.length);
+        // });
     }
 
     function next() { nextMatch(); }

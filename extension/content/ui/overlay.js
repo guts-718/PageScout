@@ -44,7 +44,6 @@ SSController.setCounterUpdater(n=>{
 });
 
 /*  BUTTONS  */
-
 root.querySelector("#ss-next").onclick = SSController.next;
 root.querySelector("#ss-prev").onclick = SSController.prev;
 

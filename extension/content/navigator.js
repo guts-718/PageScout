@@ -3,7 +3,7 @@ let currentMatches = [];
 
 function startNavigation(matches) {
     currentMatches = matches;
-    currentIndex = -1;
+    currentIndex = 0;
 }
 
 function highlightCurrent() {
@@ -22,17 +22,21 @@ function highlightCurrent() {
 }
 
 function nextMatch() {
+    console.log("next_matched_clicked");
     if (!currentMatches.length) return;
 
+   
     currentIndex = (currentIndex + 1) % currentMatches.length;
+    console.log("crrent_index: ",currentIndex);
     highlightCurrent();
 }
 
 function prevMatch() {
+    console.log("prev_matched_clicked");
     if (!currentMatches.length) return;
 
     currentIndex =
         (currentIndex - 1 + currentMatches.length) % currentMatches.length;
-
+    console.log("crrent_index: ",currentIndex);
     highlightCurrent();
 }
